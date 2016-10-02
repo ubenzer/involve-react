@@ -2,10 +2,12 @@ import React from "react";
 import ReactDOM from "react-dom";
 import createStore from "./store/createStore";
 import AppContainer from "./containers/AppContainer";
+import injectTapEventPlugin from "react-tap-event-plugin";
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 
-import {init} from "./persistency/firebase";
-
-init();
+// Needed for onTouchTap
+// http://stackoverflow.com/a/34015469/988941
+injectTapEventPlugin();
 
 // ========================================================
 // Store Instantiation
@@ -22,7 +24,10 @@ let render = () => {
   const routes = require("./routes/index").default(store);
 
   ReactDOM.render(
-    <AppContainer store={store} routes={routes} />,
+    <MuiThemeProvider>
+      <AppContainer store={store} routes={routes} />
+    </MuiThemeProvider>
+    ,
     MOUNT_NODE
   );
 };

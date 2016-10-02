@@ -1,10 +1,12 @@
 import {connect} from "react-redux";
-import {commentListUpdated} from "../modules/sitechat";
+import {persistComment} from "../modules/sitechat";
+import {firebase, helpers} from "redux-react-firebase";
+const {pathToJS, dataToJS} = helpers;
 
 /*  This is a container component. Notice it does not contain any JSX,
     nor does it import React. This component is **only** responsible for
     wiring in the actions and state necessary to render a presentational
-    component - in this case, the counter:   */
+    component */
 
 import SiteChat from "../components/SiteChat";
 
@@ -13,12 +15,20 @@ import SiteChat from "../components/SiteChat";
     implementing our wrapper around increment; the component doesn't care   */
 
 const mapDispatchToProps = {
-  commentListUpdated
+  persistComment
 };
 
-const mapStateToProps = (state) => ({
-  comments: state.sitechat.comments
-});
+let roomName = "ubenzercom";
+
+const mapStateToProps = ({firebase}) => {
+  return {
+    chat: dataToJS(firebase, `/entry/byContentId/${roomName}`),
+    profile: pathToJS(firebase, "profile"),
+    auth: pathToJS(firebase, "auth")
+  };
+};
+
+const fbWrappedComponent = firebase([`/entry/byContentId/${roomName}`])(SiteChat);
 
 /*  Note: mapStateToProps is where you should use `reselect` to create selectors, ie:
 
@@ -34,4 +44,4 @@ const mapStateToProps = (state) => ({
     Selectors are composable. They can be used as input to other selectors.
     https://github.com/reactjs/reselect    */
 
-export default connect(mapStateToProps, mapDispatchToProps)(SiteChat);
+export default connect(mapStateToProps, mapDispatchToProps)(fbWrappedComponent);

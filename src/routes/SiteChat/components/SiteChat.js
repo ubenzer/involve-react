@@ -1,23 +1,41 @@
 import React from "react";
+import {helpers} from "redux-react-firebase";
+const {isLoaded} = helpers;
+import CircularProgress from "material-ui/CircularProgress";
+import OtherChatItem from "./OtherChatItem";
+import AddMessage from "./AddMessage";
 
 class SiteChat extends React.Component {
-
-  componentWillMount() {
-    this.props.commentListUpdated();
+  static propTypes = {
+    form: React.PropTypes.object,
+    chat: React.PropTypes.object,
+    firebase: React.PropTypes.shape({
+      push: React.PropTypes.func.isRequired
+    }),
+    persistComment: React.PropTypes.func.isRequired
   };
 
+  handleNewMessage = () => {
+    //debugger;
+    this.props.persistComment(this.props.firebase.push);
+  }
+
   render() {
+    const {firebase, chat} = this.props;
+    console.log(this.props);
+    let output = <CircularProgress />;
+    if (isLoaded(chat)) {
+      output = Object.keys(chat).map((key) => (
+        <OtherChatItem key={key} chatItem={chat[key]} />
+      ));
+    }
     return (
       <div style={{margin: "0 auto"}} >
-        { Object.keys(this.props.comments).length }
+        {output}
+        <AddMessage handleNewMessage={() => this.handleNewMessage()} />
       </div>
     );
   };
 }
-
-SiteChat.propTypes = {
-  comments: React.PropTypes.object.isRequired,
-  commentListUpdated: React.PropTypes.func.isRequired
-};
 
 export default SiteChat;
