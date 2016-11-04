@@ -8,6 +8,12 @@ class AddMessage extends React.Component {
     handleNewMessage: React.PropTypes.func.isRequired
   };
 
+  handleNewMessage = (values) => {
+    let {handleNewMessage, reset} = this.props;
+    handleNewMessage(values);
+    reset();
+  }
+
   renderTextField({input, label, meta: {touched, error}, ...custom}) {
     return <TextField hintText={label}
       floatingLabelText={label}
@@ -17,21 +23,17 @@ class AddMessage extends React.Component {
     />;
   }
 
-  handleNewMessage() {
-    let {handleNewMessage} = this.props;
-    handleNewMessage();
-  }
-
   render() {
+    const { handleSubmit } = this.props;
     return (
-      <div>
+      <form onSubmit={handleSubmit(this.handleNewMessage)}>
         <Field name='firstName' component={this.renderTextField} hintText='Type your message' fullWidth />
-        <FlatButton label='Send' primary onClick={() => this.handleNewMessage()} />
-      </div>
+        <FlatButton label='Send' primary type="submit"/>
+      </form >
     );
   };
 }
 
-export default reduxForm({
+export default AddMessage = reduxForm({
   form: "AddMessage"
 })(AddMessage);

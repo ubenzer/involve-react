@@ -16,16 +16,15 @@ class SiteChat extends React.Component {
   };
 
   handleNewMessage = () => {
-    //debugger;
-    this.props.persistComment(this.props.firebase.push);
-  }
+    this.props.persistComment();
+  };
 
   render() {
     const {firebase, chat} = this.props;
     console.log(this.props);
     let output = <CircularProgress />;
     if (isLoaded(chat)) {
-      output = Object.keys(chat).map((key) => (
+      output = Object.keys(chat || {}).map((key) => (
         <OtherChatItem key={key} chatItem={chat[key]} />
       ));
     }

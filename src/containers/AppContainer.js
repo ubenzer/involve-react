@@ -6,7 +6,7 @@ class AppContainer extends Component {
   static propTypes = {
     routes: PropTypes.object.isRequired,
     store: PropTypes.object.isRequired
-  }
+  };
 
   shouldComponentUpdate() {
     return false;
@@ -17,9 +17,7 @@ class AppContainer extends Component {
 
     return (
       <Provider store={store}>
-        <div style={{height: "100%"}}>
-          <Router history={browserHistory} children={routes} />
-        </div>
+        <Router history={browserHistory} children={routes} />
       </Provider>
     );
   }

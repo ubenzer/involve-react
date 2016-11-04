@@ -1,7 +1,4 @@
-// We only need to import the modules necessary for initial render
 import CoreLayout from "../layouts/CoreLayout/CoreLayout";
-import Home from "./Home";
-import CounterRoute from "./Counter";
 import SiteChatRoute from "./SiteChat";
 
 /*  Note: Instead of using JSX, we recommend using react-router
@@ -9,11 +6,14 @@ import SiteChatRoute from "./SiteChat";
 
 export const createRoutes = (store) => ({
   path: "/",
+  onEnter: (nextState, replace) => {
+    if (nextState.location.pathname === "/") {
+      replace('/chat');
+    }
+  },
   component: CoreLayout,
-  indexRoute: Home,
   childRoutes: [
-    SiteChatRoute(store),
-    CounterRoute(store)
+    SiteChatRoute(store)
   ]
 });
 

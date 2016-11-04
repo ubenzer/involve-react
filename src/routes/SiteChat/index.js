@@ -12,7 +12,6 @@ export default (store) => ({
       const Counter = require("./containers/SiteChatContainer").default;
       const reducer = require("./modules/sitechat").default;
 
-      /*  Add the reducer to the store on key 'counter'  */
       injectReducer(store, {key: "sitechat", reducer});
 
       /*  Return getComponent   */

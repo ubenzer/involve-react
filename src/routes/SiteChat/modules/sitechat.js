@@ -1,3 +1,4 @@
+import firebase from "firebase";
 // ------------------------------------
 // Constants
 // ------------------------------------
@@ -6,11 +7,10 @@ export const PERSIST_COMMENT = "PERSIST_COMMENT";
 // ------------------------------------
 // Actions
 // ------------------------------------
-export function persistComment(pusherWTF) {
+export function persistComment() {
   return (dispatch, getState) => {
-    debugger;
     let state = getState();
-    pusherWTF("/entry/byContentId/ubenzercom", {name: "A", text: state.form.AddMessage.values.firstName});
+    firebase.database().ref("/entry/byContentId/ubenzercom").push({name: "A", text: state.form.AddMessage.values.firstName});
     state.form.AddMessage.values.firstName
     dispatch({
       type: PERSIST_COMMENT,
@@ -27,7 +27,9 @@ export const actions = {
 // Action Handlers
 // ------------------------------------
 const ACTION_HANDLERS = {
-  [PERSIST_COMMENT]: (state, action) => state
+  [PERSIST_COMMENT]: (state, action) => {
+    return state;
+  }
 };
 
 // ------------------------------------
