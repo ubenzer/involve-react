@@ -1,8 +1,6 @@
 import CoreLayout from "../layouts/CoreLayout/CoreLayout";
-import SiteChatRoute from "./SiteChat";
-
-/*  Note: Instead of using JSX, we recommend using react-router
-    PlainRoute objects to build route definitions.   */
+import Chat from "./Chat";
+import UserProfile from "./UserProfile";
 
 export const createRoutes = (store) => ({
   path: "/",
@@ -13,7 +11,8 @@ export const createRoutes = (store) => ({
   },
   component: CoreLayout,
   childRoutes: [
-    SiteChatRoute(store)
+    Chat(store),
+    UserProfile(store)
   ]
 });
 

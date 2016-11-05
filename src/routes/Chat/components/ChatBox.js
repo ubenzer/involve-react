@@ -8,11 +8,7 @@ import "./ChatBox.scss";
 
 class ChatBox extends React.Component {
   static propTypes = {
-    form: React.PropTypes.object,
     chat: React.PropTypes.object,
-    firebase: React.PropTypes.shape({
-      push: React.PropTypes.func.isRequired
-    }),
     persistComment: React.PropTypes.func.isRequired,
     params:  React.PropTypes.shape({
       channel: React.PropTypes.string.isRequired
