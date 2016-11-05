@@ -1,7 +1,7 @@
 import {injectReducer} from "../../store/reducers";
 
 export default (store) => ({
-  path: "chat",
+  path: "chat/:channel",
   /*  Async getComponent is only invoked when route matches   */
   getComponent(nextState, cb) {
     /*  Webpack - use 'require.ensure' to create a split point
@@ -12,7 +12,7 @@ export default (store) => ({
       const Counter = require("./containers/SiteChatContainer").default;
       const reducer = require("./modules/sitechat").default;
 
-      injectReducer(store, {key: "sitechat", reducer});
+      injectReducer(store, {key: "chat", reducer});
 
       /*  Return getComponent   */
       cb(null, Counter);

@@ -13,16 +13,23 @@ class ChatBox extends React.Component {
     firebase: React.PropTypes.shape({
       push: React.PropTypes.func.isRequired
     }),
-    persistComment: React.PropTypes.func.isRequired
+    persistComment: React.PropTypes.func.isRequired,
+    params:  React.PropTypes.shape({
+      channel: React.PropTypes.string.isRequired
+    }).isRequired
   };
 
   handleNewMessage = (comment) => {
     this.props.persistComment(comment);
   };
 
+  componentDidMount() {
+    const id = this.props.params.channel;
+    console.log(id);
+  }
+
   render() {
-    const {firebase, chat} = this.props;
-    console.log(this.props);
+    const {chat} = this.props;
     let output = <CircularProgress />;
     if (isLoaded(chat)) {
       output = Object.keys(chat || {}).map((key) => (

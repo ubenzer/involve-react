@@ -1,34 +1,26 @@
+import { bindActionCreators } from 'redux';
 import {connect} from "react-redux";
 import {persistComment} from "../modules/sitechat";
 import {firebase, helpers} from "redux-react-firebase";
 const {pathToJS, dataToJS} = helpers;
 
-/*  This is a container component. Notice it does not contain any JSX,
-    nor does it import React. This component is **only** responsible for
-    wiring in the actions and state necessary to render a presentational
-    component */
-
 import SiteChat from "../components/ChatBox";
 
-/*  Object of action creators (can also be function that returns object).
-    Keys will be passed as props to presentational components. Here we are
-    implementing our wrapper around increment; the component doesn't care   */
+const mapDispatchToProps = (dispatch, {params}) => (
+  {
+    persistComment: bindActionCreators(persistComment.bind(null, params.channel), dispatch)
+  }
+);
 
-const mapDispatchToProps = {
-  persistComment
-};
-
-let roomName = "ubenzercom";
-
-const mapStateToProps = ({firebase}) => {
+const mapStateToProps = ({firebase}, {params}) => {
   return {
-    chat: dataToJS(firebase, `/entry/byContentId/${roomName}`),
+    chat: dataToJS(firebase, `/entry/byChannel/${params.channel}`),
     profile: pathToJS(firebase, "profile"),
     auth: pathToJS(firebase, "auth")
   };
 };
 
-const fbWrappedComponent = firebase([`/entry/byContentId/${roomName}`])(SiteChat);
+const fbWrappedComponent = firebase(({params}) => [`/entry/byChannel/${params.channel}`])(SiteChat);
 
 /*  Note: mapStateToProps is where you should use `reselect` to create selectors, ie:
 

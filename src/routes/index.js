@@ -8,7 +8,7 @@ export const createRoutes = (store) => ({
   path: "/",
   onEnter: (nextState, replace) => {
     if (nextState.location.pathname === "/") {
-      replace('/chat');
+      replace('/chat/self');
     }
   },
   component: CoreLayout,
