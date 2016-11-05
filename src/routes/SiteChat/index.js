@@ -2,7 +2,13 @@ import {injectReducer} from "../../store/reducers";
 
 export default (store) => ({
   path: "chat/:channel",
-  /*  Async getComponent is only invoked when route matches   */
+  onEnter(nextState, replace, cb) {
+    store.firebase.auth().signInAnonymously()
+    .then(() => {
+      cb();
+    })
+    .catch(console.error);
+  },
   getComponent(nextState, cb) {
     /*  Webpack - use 'require.ensure' to create a split point
         and embed an async module loader (jsonp) when bundling   */

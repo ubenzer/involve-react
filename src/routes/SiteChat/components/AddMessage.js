@@ -27,7 +27,7 @@ class AddMessage extends React.Component {
   render() {
     const { handleSubmit } = this.props;
     return (
-      <form className="add-message-form chat-box__add_message_area" onSubmit={handleSubmit(this.handleNewMessage)}>
+      <form autoComplete="off" className="add-message-form chat-box__add_message_area" onSubmit={handleSubmit(this.handleNewMessage)}>
         <Field name='message' component={this.renderTextField} hintText='Type your message' />
         <IconButton className="add-message-form__submit-button" type="submit" iconClassName="material-icons">send</IconButton>
       </form >
