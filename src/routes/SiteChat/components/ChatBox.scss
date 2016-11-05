@@ -1,0 +1,7 @@
+.chat-box {
+  display: flex;
+  flex-flow: column nowrap;
+}
+.chat-box__chat-message {
+  margin-bottom: 5px;
+}

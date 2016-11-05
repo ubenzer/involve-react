@@ -7,15 +7,9 @@ export const PERSIST_COMMENT = "PERSIST_COMMENT";
 // ------------------------------------
 // Actions
 // ------------------------------------
-export function persistComment() {
+export function persistComment(comment) {
   return (dispatch, getState) => {
-    let state = getState();
-    firebase.database().ref("/entry/byContentId/ubenzercom").push({name: "A", text: state.form.AddMessage.values.firstName});
-    state.form.AddMessage.values.firstName
-    dispatch({
-      type: PERSIST_COMMENT,
-      payload: ""
-    });
+    return firebase.database().ref("/entry/byContentId/ubenzercom").push({name: "A", text: comment.firstName});
   };
 }
 

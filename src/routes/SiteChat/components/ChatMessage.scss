@@ -1,0 +1,13 @@
+.chat-message {
+  display: flex;
+  align-items: center;
+}
+.chat-message__avatar {
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+.chat-message__message {
+  flex-grow: 1;
+  flex-shrink: 1;
+  margin: 0 10px;
+}

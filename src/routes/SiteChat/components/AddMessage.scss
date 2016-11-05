@@ -1,0 +1,11 @@
+.add-message-form {
+  display: flex;
+}
+.add-message-form__message-input {
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+.add-message-form__submit-button {
+  flex-grow: 0;
+  flex-shrink: 0;
+}

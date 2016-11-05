@@ -19,3 +19,9 @@ body {
 *:after {
   box-sizing: inherit;
 }
+
+#root {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}

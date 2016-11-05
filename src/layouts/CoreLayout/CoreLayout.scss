@@ -1,0 +1,9 @@
+.container {
+  display: flex;
+  max-width: 600px;
+  flex-grow: 1;
+}
+.container .container__chat-box {
+  margin: 20px;
+  flex-grow: 1;
+}

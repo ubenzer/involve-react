@@ -1,7 +1,8 @@
 import React from "react";
 import {Field, reduxForm} from "redux-form";
 import TextField from "material-ui/TextField";
-import FlatButton from "material-ui/FlatButton";
+import IconButton from "material-ui/IconButton";
+import "./AddMessage.scss";
 
 class AddMessage extends React.Component {
   static propTypes = {
@@ -15,7 +16,7 @@ class AddMessage extends React.Component {
   }
 
   renderTextField({input, label, meta: {touched, error}, ...custom}) {
-    return <TextField hintText={label}
+    return <TextField className="add-message-form__message-input" hintText={label}
       floatingLabelText={label}
       errorText={touched && error}
       {...input}
@@ -26,9 +27,9 @@ class AddMessage extends React.Component {
   render() {
     const { handleSubmit } = this.props;
     return (
-      <form onSubmit={handleSubmit(this.handleNewMessage)}>
-        <Field name='firstName' component={this.renderTextField} hintText='Type your message' fullWidth />
-        <FlatButton label='Send' primary type="submit"/>
+      <form className="add-message-form chat-box__add_message_area" onSubmit={handleSubmit(this.handleNewMessage)}>
+        <Field name='firstName' component={this.renderTextField} hintText='Type your message' />
+        <IconButton className="add-message-form__submit-button" type="submit" iconClassName="material-icons">send</IconButton>
       </form >
     );
   };
