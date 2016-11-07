@@ -15,6 +15,6 @@ const mapStateToProps = ({firebase}) => {
   };
 };
 
-//const fbWrappedComponent = firebase(({params}) => [`/entry/byChannel/${params.channel}`])(SiteChat);
+// const fbWrappedComponent = firebase(({params}) => [`/entry/byChannel/${params.channel}`])(SiteChat);
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserProfile);

@@ -11,11 +11,11 @@ class UserProfile extends React.Component {
   };
 
   renderTextField({input, label, meta: {touched, error}, ...custom}) {
-    return <TextField className="add-message-form__message-input" hintText={label}
-                      floatingLabelText={label}
-                      errorText={touched && error}
-                      {...input}
-                      {...custom}
+    return <TextField className='add-message-form__message-input' hintText={label}
+      floatingLabelText={label}
+      errorText={touched && error}
+      {...input}
+      {...custom}
     />;
   }
 
@@ -25,12 +25,12 @@ class UserProfile extends React.Component {
   }
 
   render() {
-    const { handleSubmit } = this.props;
+    const {handleSubmit} = this.props;
     return (
-      <div className="profile-box">
-        <form className="update-profile-form" onSubmit={handleSubmit(this.props.updateProfile)}>
+      <div className='profile-box'>
+        <form className='update-profile-form' onSubmit={handleSubmit(this.props.updateProfile)}>
           <Field name='name' component={this.renderTextField} hintText='Your name' />
-          <RaisedButton primary={true} className="update-profile-form__submit-button" type="submit">SAVE</RaisedButton>
+          <RaisedButton primary className='update-profile-form__submit-button' type='submit'>SAVE</RaisedButton>
         </form>
       </div>
     );

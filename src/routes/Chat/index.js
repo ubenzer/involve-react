@@ -14,7 +14,6 @@ export default (store) => ({
       injectReducer(store, {key: "chat", reducer});
 
       cb(null, Counter);
-
     }, "chat");
   }
 });

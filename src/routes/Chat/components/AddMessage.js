@@ -11,12 +11,13 @@ class AddMessage extends React.Component {
 
   handleNewMessage = (values) => {
     let {handleNewMessage, reset} = this.props;
+    if (!values.message) { return; }
     handleNewMessage(values);
     reset();
   }
 
   renderTextField({input, label, meta: {touched, error}, ...custom}) {
-    return <TextField className="add-message-form__message-input" hintText={label}
+    return <TextField className='add-message-form__message-input' hintText={label}
       floatingLabelText={label}
       errorText={touched && error}
       {...input}
@@ -25,11 +26,11 @@ class AddMessage extends React.Component {
   }
 
   render() {
-    const { handleSubmit } = this.props;
+    const {handleSubmit} = this.props;
     return (
-      <form autoComplete="off" className="add-message-form chat-box__add_message_area" onSubmit={handleSubmit(this.handleNewMessage)}>
+      <form autoComplete='off' className='add-message-form chat-box__add_message_area' onSubmit={handleSubmit(this.handleNewMessage)}>
         <Field name='message' component={this.renderTextField} hintText='Type your message' />
-        <IconButton className="add-message-form__submit-button" type="submit" iconClassName="material-icons">send</IconButton>
+        <IconButton className='add-message-form__submit-button' type='submit' iconClassName='material-icons'>send</IconButton>
       </form >
     );
   };

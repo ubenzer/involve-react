@@ -2,16 +2,20 @@ import React from "react";
 import {helpers} from "redux-react-firebase";
 const {isLoaded} = helpers;
 import CircularProgress from "material-ui/CircularProgress";
-import OtherChatItem from "./ChatMessage";
+import ChatMessage from "./ChatMessage";
 import AddMessage from "./AddMessage";
 import "./ChatBox.scss";
 
 class ChatBox extends React.Component {
   static propTypes = {
-    chat: React.PropTypes.object,
+    chat: React.PropTypes.array.isRequired,
     persistComment: React.PropTypes.func.isRequired,
-    params:  React.PropTypes.shape({
+    params: React.PropTypes.shape({
       channel: React.PropTypes.string.isRequired
+    }).isRequired,
+    auth: React.PropTypes.shape({
+      uid: React.PropTypes.string.isRequired,
+      isAnonymous: React.PropTypes.bool.isRequired
     }).isRequired
   };
 
@@ -19,22 +23,18 @@ class ChatBox extends React.Component {
     this.props.persistComment(comment);
   };
 
-  componentDidMount() {
-    const id = this.props.params.channel;
-    console.log(id);
-  }
+  renderLoading = () => <div className='chat-box chat-box__loading'><CircularProgress /></div>
+
+  renderChatMessages = (chat) => chat.map((chat) => (
+    <ChatMessage key={chat._key} chatItem={chat}/>
+  ))
 
   render() {
-    const {chat} = this.props;
-    let output = <CircularProgress />;
-    if (isLoaded(chat)) {
-      output = Object.keys(chat || {}).map((key) => (
-        <OtherChatItem key={key} chatItem={chat[key]} />
-      ));
-    }
+    const {auth, chat} = this.props;
     return (
-      <div className="chat-box container__chat-box">
-        {output}
+      <div className='chat-box container__chat-box'>
+        {!isLoaded(chat) && this.renderLoading()}
+        {isLoaded(chat) && this.renderChatMessages(chat)}
         <AddMessage handleNewMessage={this.handleNewMessage} />
       </div>
     );
