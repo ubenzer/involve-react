@@ -5,6 +5,7 @@ import CircularProgress from "material-ui/CircularProgress";
 import ChatMessage from "./ChatMessage";
 import AddMessage from "./AddMessage";
 import "./ChatBox.scss";
+import LoginContainer from "../../../containers/LoginContainer";
 
 class ChatBox extends React.Component {
   static propTypes = {
@@ -26,8 +27,10 @@ class ChatBox extends React.Component {
   renderLoading = () => <div className='chat-box chat-box__loading'><CircularProgress /></div>
 
   renderChatMessages = (chat) => chat.map((chat) => (
-    <ChatMessage key={chat._key} chatItem={chat}/>
+    <ChatMessage key={chat._key} chatItem={chat} />
   ))
+
+  renderLoginLinks = () => <LoginContainer />
 
   render() {
     const {auth, chat} = this.props;
@@ -35,6 +38,8 @@ class ChatBox extends React.Component {
       <div className='chat-box container__chat-box'>
         {!isLoaded(chat) && this.renderLoading()}
         {isLoaded(chat) && this.renderChatMessages(chat)}
+        {auth.isAnonymous && this.renderLoginLinks()}
+        {auth.uid}
         <AddMessage handleNewMessage={this.handleNewMessage} />
       </div>
     );
