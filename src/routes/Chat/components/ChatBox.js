@@ -8,7 +8,7 @@ import "./ChatBox.scss";
 
 class ChatBox extends React.Component {
   static propTypes = {
-    chat: React.PropTypes.array.isRequired,
+    chat: React.PropTypes.array,
     persistComment: React.PropTypes.func.isRequired,
     params: React.PropTypes.shape({
       channel: React.PropTypes.string.isRequired

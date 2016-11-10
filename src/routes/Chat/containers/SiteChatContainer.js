@@ -14,10 +14,10 @@ const mapDispatchToProps = (dispatch, {params}) => (
   }
 );
 
-const chatMessagesSelector = ({firebase}, {params}) => (dataToJS(firebase, `/entry/byChannel/${params.channel}`, {}))
+const chatMessagesSelector = ({firebase}, {params}) => (dataToJS(firebase, `/entry/byChannel/${params.channel}`))
 const orderedChatMessagesSelector = createSelector(
   chatMessagesSelector,
-  (chatMessages) => Object.keys(chatMessages).sort().map((id) => ({"_key": id, ...chatMessages[id]}))
+  (cm) => !cm ? cm : Object.keys(cm).sort().map((id) => ({_key: id, ...cm[id]}))
 )
 
 const mapStateToProps = (state, ownProps) => {
