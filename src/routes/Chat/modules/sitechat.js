@@ -9,7 +9,14 @@ export const PERSIST_COMMENT = "PERSIST_COMMENT";
 // ------------------------------------
 export function persistComment(channel, comment) {
   return (dispatch, getState) => {
-    return firebase.database().ref(`/entry/byChannel/${channel}`).push({name: "A", text: comment.message});
+    const state = getState();
+    const auth = state.firebase.get("auth");
+    return firebase.database().ref(`/entry/byChannel/${channel}`).push(
+      {
+        name: auth.displayName,
+        photo: auth.photoURL,
+        text: comment.message
+      });
   };
 }
 

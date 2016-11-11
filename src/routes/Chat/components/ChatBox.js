@@ -6,6 +6,7 @@ import ChatMessage from "./ChatMessage";
 import AddMessage from "./AddMessage";
 import "./ChatBox.scss";
 import LoginContainer from "../../../containers/LoginContainer";
+import LoginDialog from "../../../components/LoginModal";
 
 class ChatBox extends React.Component {
   static propTypes = {
@@ -15,13 +16,29 @@ class ChatBox extends React.Component {
       channel: React.PropTypes.string.isRequired
     }).isRequired,
     auth: React.PropTypes.shape({
-      uid: React.PropTypes.string.isRequired,
-      isAnonymous: React.PropTypes.bool.isRequired
-    }).isRequired
+      uid: React.PropTypes.string.isRequired
+    })
   };
 
+  state = {
+    loginDialogOpen: false
+  };
+
+  openDialog = () => {
+    this.setState({loginDialogOpen: true});
+  }
+
+  closeDialog = () => {
+    this.setState({loginDialogOpen: false});
+  }
+
   handleNewMessage = (comment) => {
-    this.props.persistComment(comment);
+    const {auth} = this.props;
+    if (auth) {
+      this.props.persistComment(comment);
+    } else {
+      this.openDialog();
+    }
   };
 
   renderLoading = () => <div className='chat-box chat-box__loading'><CircularProgress /></div>
@@ -30,17 +47,20 @@ class ChatBox extends React.Component {
     <ChatMessage key={chat._key} chatItem={chat} />
   ))
 
-  renderLoginLinks = () => <LoginContainer />
-
+  renderContent = () => (
+    <div>
+      { this.renderChatMessages(this.props.chat) }
+      { !this.props.auth && <LoginContainer /> }
+      { !this.props.auth && <LoginDialog open={this.state.loginDialogOpen} handleClose={this.closeDialog} /> }
+      <AddMessage handleNewMessage={this.handleNewMessage} />
+    </div>
+  )
   render() {
-    const {auth, chat} = this.props;
+    const {chat} = this.props;
     return (
       <div className='chat-box container__chat-box'>
         {!isLoaded(chat) && this.renderLoading()}
-        {isLoaded(chat) && this.renderChatMessages(chat)}
-        {auth.isAnonymous && this.renderLoginLinks()}
-        {auth.uid}
-        <AddMessage handleNewMessage={this.handleNewMessage} />
+        {isLoaded(chat) && this.renderContent()}
       </div>
     );
   };

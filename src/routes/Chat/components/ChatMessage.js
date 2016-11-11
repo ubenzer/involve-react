@@ -4,16 +4,20 @@ import "./ChatMessage.scss";
 
 class ChatMessage extends React.Component {
   static propTypes = {
-    chatItem: React.PropTypes.object
+    chatItem: React.PropTypes.shape({
+      name: React.PropTypes.string,
+      photo: React.PropTypes.string,
+      text: React.PropTypes.string
+    }).isRequired
   };
 
   render() {
     let {chatItem} = this.props;
-    let {text, name} = chatItem;
+    let {photo, text, name} = chatItem;
 
     return (
       <div className='chat-message chat-message_other chat-box__chat-message'>
-        <Avatar className='chat-message__avatar'>{ name[0] }</Avatar>
+        <Avatar src={photo} className='chat-message__avatar' />
         <span className='chat-message__message'> {text}</span>
       </div>
     );

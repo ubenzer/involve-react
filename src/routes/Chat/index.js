@@ -3,9 +3,6 @@ import {ensureAnonymousLogin} from "../../utils/auth";
 
 export default (store) => ({
   path: "chat/:channel",
-  onEnter(nextState, replace, cb) {
-    ensureAnonymousLogin(store, cb, console.error);
-  },
   getComponent(nextState, cb) {
     require.ensure([], (require) => {
       const Counter = require("./containers/SiteChatContainer").default;

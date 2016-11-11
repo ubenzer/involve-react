@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const config = require("../config");
 const debug = require("debug")("app:webpack:config");
+const path = require("path");
 
 const paths = config.utils_paths;
 const __DEV__ = config.globals.__DEV__;
@@ -17,7 +18,10 @@ const webpackConfig = {
   devtool: config.compiler_devtool,
   resolve: {
     root: paths.client(),
-    extensions: ["", ".js", ".jsx", ".json"]
+    extensions: ["", ".js", ".jsx", ".json"],
+    alias: {
+      config: path.resolve(paths.client(), "config", config.env)
+    }
   },
   module: {}
 };
