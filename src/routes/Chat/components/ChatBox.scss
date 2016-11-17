@@ -2,6 +2,18 @@
   display: flex;
   flex-flow: column nowrap;
 }
+.chat-box__content {
+  display: flex;
+  flex-flow: column nowrap;
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+.chat-box__chat-messages {
+  display: flex;
+  flex-flow: column nowrap;
+  flex-grow: 1;
+  flex-shrink: 1;
+}
 .chat-box__chat-message {
   margin-bottom: 5px;
 }

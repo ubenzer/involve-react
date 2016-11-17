@@ -29,7 +29,7 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const fbWrappedComponent = firebase(({params}) => [
-    [`/entry/byChannel/${params.channel}#orderByKey&limitToLast=10`]
+    [`/entry/byChannel/${params.channel}#orderByKey&limitToLast=50`]
   ])(SiteChat);
 
 export default connect(mapStateToProps, mapDispatchToProps)(fbWrappedComponent);
